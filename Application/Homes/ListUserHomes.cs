@@ -1,18 +1,23 @@
-using Application.Core;
+﻿using Application.Core;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Domain;
 using Domain.ModelDTOs;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistance;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Application.Homes
 {
-    public class List
+    public class ListUserHomes
     {
         public class Query : IRequest<Result<List<HomeDto>>>
         {
+            public string AppUserId { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, Result<List<HomeDto>>>
@@ -28,7 +33,11 @@ namespace Application.Homes
 
             public async Task<Result<List<HomeDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var homes = await _context.Homes.ProjectTo<HomeDto>(_mapper.ConfigurationProvider).ToListAsync();
+                var homes = await _context.Homes
+                    .Where(h => h.AppUserId == request.AppUserId)
+                    .Include(h => h.Devices)
+                    .ProjectTo<HomeDto>(_mapper.ConfigurationProvider)
+                    .ToListAsync();
 
                 if (homes == null) return Result<List<HomeDto>>.Success(new List<HomeDto>());
 

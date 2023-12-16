@@ -16,6 +16,9 @@ namespace Persistance
 
         public DbSet<Home> Homes { get; set; }
         public DbSet<Device> Devices { get; set; }
+        public DbSet<RunPeriod> RunPeriods { get; set; }
+        public DbSet<FieldRow> FieldRows { get; set; }
+        public DbSet<Field> Fields { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

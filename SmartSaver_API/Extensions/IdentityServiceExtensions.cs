@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Persistance;
-using SmartSaver.Server.Services;
+using SmartSaver_API.Services;
 
-namespace SmartSaver.Server.Extensions
+namespace SmartSaver_API.Extensions
 {
     public static class IdentityServiceExtensions
     {
@@ -31,8 +31,7 @@ namespace SmartSaver.Server.Extensions
                     IssuerSigningKey = key,
                     ValidateIssuer = false,
                     ValidateAudience = false,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero
+                    ValidateLifetime = false
                 };
             });
             services.AddScoped<TokenService>();

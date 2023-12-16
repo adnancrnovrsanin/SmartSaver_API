@@ -2,7 +2,7 @@ using System.Net;
 using System.Text.Json;
 using Application.Core;
 
-namespace SmartSaver.Server.Middleware
+namespace SmartSaver_API.Middleware
 {
     public class ExceptionMiddleware
     {

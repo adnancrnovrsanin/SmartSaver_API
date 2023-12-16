@@ -1,5 +1,6 @@
 using AutoMapper;
 using Domain;
+using Domain.ModelDTOs;
 using System.Globalization;
 
 namespace Application.Core
@@ -8,7 +9,11 @@ namespace Application.Core
     {
         public MappingProfiles()
         {
-
+            CreateMap<Home, HomeDto>();
+            CreateMap<Device, DeviceDto>();
+            CreateMap<RunPeriod, RunPeriodDto>();
+            CreateMap<Field, FieldDto>();
+            CreateMap<FieldRow, FieldRowDto>();
         }
     }
 }

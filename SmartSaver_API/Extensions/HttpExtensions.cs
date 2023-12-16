@@ -1,4 +1,4 @@
-namespace SmartSaver.Server.Extensions
+namespace SmartSaver_API.Extensions
 {
     public static class HttpExtensions
     {

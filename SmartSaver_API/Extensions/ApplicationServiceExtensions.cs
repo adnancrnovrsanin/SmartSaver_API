@@ -4,8 +4,9 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Persistance;
+using SmartSaver_API.Services;
 
-namespace SmartSaver.Server.Extensions
+namespace SmartSaver_API.Extensions
 {
     public static class ApplicationServiceExtensions
     {
@@ -22,20 +23,9 @@ namespace SmartSaver.Server.Extensions
                 // opt.UseNpgsql(Environment.GetEnvironmentVariable("DATABASE_URL"));
             });
 
-            services.AddCors(opt =>
-            {
-                opt.AddPolicy("CorsPolicy", policy =>
-                {
-                    policy
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .WithExposedHeaders("WWW-Authenticate")
-                        .AllowAnyOrigin();
-                });
-            });
-
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+            services.AddScoped<IUserAccessor, UserAccessor>();
 
             return services;
         }
