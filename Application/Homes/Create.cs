@@ -89,7 +89,8 @@ namespace Application.Homes
                         {
                             Coordinates = [i, j],
                             DeviceId = deviceCheck?.Id,
-                            FieldRowId = fieldRow.Id
+                            FieldRowId = fieldRow.Id,
+                            Value = request.Home.HouseMap[i][j],
                         };
                         fieldRow.Fields.Add(field);
                     }

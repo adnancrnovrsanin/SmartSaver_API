@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartSaver_API.DTOs;
 using SmartSaver_API.Services;
-using System.Data;
+using System.Security.Claims;
 
 namespace SmartSaver_API.Controller
 {
     [ApiController]
     [AllowAnonymous]
     [Route("api/[controller]")]
-    public class AccountController : BaseApiController
+    public class AccountController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
@@ -81,16 +81,12 @@ namespace SmartSaver_API.Controller
             return BadRequest("Problem registering user");
         }
 
-
-
         [Authorize]
         [HttpGet]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
             var user = await _userManager.Users
-                .FirstOrDefaultAsync(x => x.Email == _userAccessor.GetEmail());
-
-            return Ok(_userAccessor.GetEmail());
+            .FirstOrDefaultAsync(x => x.Email.Equals(User.FindFirstValue(ClaimTypes.Email)));
 
             if (user == null) return NotFound();
 

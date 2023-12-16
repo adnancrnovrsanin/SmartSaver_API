@@ -29,5 +29,17 @@ namespace SmartSaver_API.Controllers
         {
             return HandleResult(await Mediator.Send(new Create.Command { Device = device }));
         }
+
+        [HttpPost("turnOn/{deviceId}")]
+        public async Task<IActionResult> TurnOnDevice(Guid deviceId)
+        {
+            return HandleResult(await Mediator.Send(new TurnOn.Command { DeviceId = deviceId }));
+        }
+
+        [HttpPost("turnOff/{deviceId}")]
+        public async Task<IActionResult> TurnOffDevice(Guid deviceId)
+        {
+            return HandleResult(await Mediator.Send(new TurnOn.Command { DeviceId = deviceId }));
+        }
     }
 }
